@@ -1,0 +1,715 @@
+
+#progressGraphicContainer {
+    
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+   
+  }
+  
+  #progress {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+  }
+  
+  #spinner {
+      
+      position: relative;
+      background-color: black;
+      width: 125px;
+      height: 125px;
+      border-radius: 50%;
+      background: linear-gradient(#00c14b,  #61CE70, #ffff9f);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: spin 1.4s linear infinite;
+      box-shadow: 0px 0px 150px -75px black;
+      
+  }
+  
+  #spinner::before {
+      
+      content:"";
+      background-color: white;
+      position: absolute;
+      width: 80%;
+      height: 80%;
+      border-radius: 50%;;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      
+  }
+  
+  @keframes spin {
+    
+    0% {
+      
+      transform: rotate(0deg);
+    }
+    
+    100% {
+        
+      transform: rotate(360deg);
+      
+    }
+    
+  }
+  
+  @-webkit-keframes spin {
+    
+    0% {
+      
+      transform: rotate(0deg);
+    }
+    
+    100% {
+        
+      transform: rotate(360deg);
+      
+    }
+    
+  }
+  
+  h3.mphb-gateway-chooser-title {
+      
+      text-transform: none !important;
+      font-weight: 500 !important;
+  }
+  
+  .mphb-gateway-title  {
+      
+      font-weight: 450;
+      
+  }
+  
+  #secureCheckoutGraphic {
+      
+      width: 155px;
+      position: absolute;
+      bottom: 105px;
+      right: 80px;
+  }
+  
+  
+  .mphb-login-form-wrap{
+      
+      display: none;
+  }
+  
+  #stripePaymentGraphicSection{
+      
+  
+      
+  }
+  #mphb-billing-details {
+      
+      margin-right: 2%;
+      
+  }
+  
+  input#submitBookingRequestButton {
+      
+      padding: 2% 10% 2% 10%;
+      border-radius: 5px;
+      background-color: #00c14b;
+  }
+  
+  #submitBookingRequestButton:hover {
+      
+      background-color: #61CE70;
+      color: #FFFFFF;
+      border: none;
+  }
+  
+  abbr {
+      
+      color: #FF0000;
+      
+  }
+  
+  p.mphb_sc_checkout-submit-wrapper{
+      
+      float: none;
+      
+  }
+  
+  #mphb-customer-details{
+  
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin: 1% 2% 0 0;
+      border-bottom: 1px solid #dddddd;
+      padding-bottom: 3.25%;
+  }
+    
+  
+  .mphb-customer-name {
+  
+      width: 48%;
+    
+  }
+  
+  .mphb-customer-last-name {
+  
+      width: 48%;
+  }
+  
+  .mphb-customer-email {
+      
+      width: 48%;
+   
+  }
+  
+  .mphb-customer-phone {
+      
+      width: 48%;
+  
+  }
+  
+  .mphb-customer-country {
+      
+      width: 30%;
+  
+  }
+  
+  #mphb_first_name{
+      
+      border: 1px solid #dddddd;
+      border-radius: 5px;
+  }
+  
+  
+  #mphb_last_name{
+      
+      border: 1px solid #dddddd;
+      border-radius: 5px;
+  }
+  
+  
+  #mphb_email{
+      
+      border: 1px solid #dddddd;
+      border-radius: 5px;
+  }
+  
+  
+  
+  #mphb_phone{
+      
+      border: 1px solid #dddddd;
+      border-radius: 5px;
+  }
+  
+  #mphb_country{
+      
+      border: 1px solid #dddddd;
+      border-radius: 5px;
+  }
+  
+  .individualPaymentCntr {
+      
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 3% 0 3% 5%;
+      font-weight: 400;
+  
+  }
+  
+  .securityDepositPaymentCntr {
+      
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 3% 0 1.5% 10%;
+      font-weight: 400;
+      
+  }
+  
+  .paymentAmountDue {
+      
+      padding: 0 5% 0 0;
+  }
+  
+  .securityDepositDue {
+      
+      padding: 0 9.25% 0 0;
+  }
+  
+  #securityDepositDueDate {
+      
+      margin: 0 0 0 1%;
+      
+  }
+  
+  #spencerImg {
+      
+      display: none;
+      
+  }
+  
+  #dimpleImg {
+      
+      display: none;
+      
+  }
+  
+  #rosettaImg {
+      
+      display: none;
+      
+  }
+  
+  #arthurImg {
+      
+      display: none;
+      
+  }
+    
+      
+  #reservationDetailContainerWrapper {
+      
+      height:1000px;
+  }
+  
+  #paymentDueTodayDatesAndHeaderContent {
+      
+      display: flex;
+      flex-direction: column;
+  }
+  
+  #paymentDueTodayDateRangeAndAmountCtr {
+      
+      display: flex;
+      justify-content: space-between;
+      margin: 3.5% 0 6% 0;
+      
+  }
+  
+  #securityDepositDueCtr {
+      
+      display: flex;
+      justify-content: space-between;
+      
+  }
+  #paymentDueTodayText {
+      
+      font-weight: inherit;
+      font-size: 22px;
+      text-transform: inherit;
+      color: inherit;
+      width: 100%;
+      margin: 0 0 0 3%;
+      padding: 3.5% 5% 5% 4.25%;
+      
+  }
+  
+  #paymentToday {
+      
+      font-weight: inherit;
+      font-size: inherit;
+      text-transform: inherit;
+     
+  
+  }
+  
+  #upcomingPaymentsHeader{
+      
+      font-weight: inherit;
+      font-size: 22px;
+      text-transform: inherit;
+      margin: 8% 0 0 5%;
+      
+  }
+  
+  #subsequentPaymentsSection{
+      
+      font-weight: inherit;
+      font-size: inherit;
+      text-transform: inherit;
+      display: none;
+      border-top: 1px solid #dddddd;
+      margin: 5% 5% 5% 5%;
+  }
+  
+  #paymentDueFinalText{
+      
+      font-weight: inherit;
+      font-size: inherit;
+      text-transform: inherit;
+     
+  }
+  
+  #paymentDueFinal{
+      
+      font-weight: inherit;
+      font-size: inherit;
+      text-transform: inherit;
+  }
+  
+  
+  
+  #reservationDetailContainerCheckout {
+      
+      font-size: 16.5px;
+      font-weight: 425;
+      color: #22222;
+      text-transform: none;
+      position: -webkit-sticky; /* For Safari */
+      position: sticky;
+      top: 20px; /* Distance from the top of the viewport where the div becomes sticky */
+  }
+  img.headerImage {
+      
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    height: 250px;
+    width: 440px;
+    
+  }
+  
+  img#calendarIconImg {
+      
+      width:35px;
+      height: 35px;
+  }
+  
+  .unitNameHeader {
+      
+      font-weight: inherit;
+      font-size: inherit;
+      text-transform: inherit;
+      margin: 0 .25% .25% 0;
+  }
+  
+  #reservationDates {
+      
+      font-size: inherit;
+      font-weight: 400;
+      text-transform: inherit;
+  }
+  #unitArthur {
+      
+      font-size: inherit;
+      text-transform: inherit;
+      display: none; 
+  }
+  
+  #unitRosetta {
+      
+      display: none; 
+      font-weight: inherit;
+      font-size: inherit;
+      text-transform: inherit;
+  }
+  
+  #unitSpencer {
+      
+      display: none; 
+      font-weight: inherit;
+      font-size: inherit;
+      text-transform: inherit;
+      
+  }
+  
+  #unitDimple {
+      
+      display: none;  
+      font-size: inherit;
+      font-weight: inherit;
+      text-transform: inherit;
+  }
+  
+  #locationPinImage {
+      
+      width:25px;
+      height: 35px;
+  
+  }
+  #headerImageContainer {
+      
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #00;
+  }
+  
+  
+  
+  #reservationDetailContainerCheckout {
+    
+      border: solid 1px #dddddd;
+      border-radius: 10px;
+  }
+  
+  #unitRating {
+      
+      margin: 1.5% 0 0 1%;
+      
+  }
+  
+  
+  #unitNameContainer {
+    
+    margin: 5% 0 5% 0;
+    justify-content: center;
+    display: flex;
+    align-items: flex-end;
+    font-size: 22px;
+  }
+  
+  
+  #reservationDatesContainer {
+    
+    margin: 5% 5% 5% 5%;
+    padding: 5% 5% 8.5% 5%;
+    justify-content: space-between;
+    display: flex;
+    align-items: flex-end;
+    display: flex;
+    border-bottom: 1px solid #dddddd;
+    
+  }
+  
+  #paymentDueTodayCoverageDates {
+      
+      margin: 0 0 0 8%;
+      font-weight: 400;
+  }
+  
+  #paymentDueTodayAmount{
+      
+       margin: 0 4% 0 0;
+      
+  }
+  
+  #paymentDueTodayContainer {
+    
+    margin: 0 5% 5% 5%;
+    justify-content: space-evenly;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #dddddd;
+    
+  }
+  
+  #securityDepositDueContainer {
+    
+    margin: 0 0 5% 0;
+    justify-content: space-evenly;
+    display: flex;
+    flex-direction: column;
+    /*border-bottom: 1px solid #dddddd;*/
+    
+  }
+  
+  #securityDepositDueText {
+      
+      font-weight: inherit;
+      font-size: 22px;
+      text-transform: inherit;
+      color: inherit;
+      width: 100%;
+      margin: 0 0 0 4%;
+      padding: 3.5% 5% 5% 6.5%;
+      
+  }
+  
+  #securityDepositAmountDue{
+      
+       margin: 0 9.5% 0 0;
+      
+  }
+  
+  #subsequentPaymentsContainer{
+  
+    margin: 5% 0 5% 0;
+    justify-content: space-evenly;
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+  #paymentDueFinalContainer {
+    
+    margin: 5% 0 5% 0;
+    justify-content: space-evenly;
+    display: flex;
+    border-bottom: 1px solid #dddddd;
+    display:none;
+    
+  }
+  
+  #cancellationPolicySection{
+      
+    margin: 5% 0 5% 0;
+    border-bottom: 1px solid #dddddd;
+    padding-bottom: 3.25%;
+      
+  }
+  
+  #cancellationPolicyH3{
+     
+      font-weight: 425;
+      font-size: 22px;
+      text-transform: inherit;
+      color: inherit;
+      width: 100%;
+  
+  }
+  
+  #cancellationPolicyLearnMoreAnchor{
+      
+      font-weight: 425;
+  }
+  
+  #yourInformationHeader {
+  
+      font-weight: 425;
+      font-size: 22px;
+      text-transform: inherit;
+      color: inherit;
+      width: 100%;
+      margin-top: -1px;
+  }
+  
+  section.modal-section {
+      
+      margin: 0 6% 0 6%;
+      
+  }
+  /* Modal dialog styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5); /* Semi-transparent background */
+  
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 38%;
+    max-width: 695px;
+    text-align: center;
+    border-radius: 10px;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    top: -20px;
+    position: relative;
+    
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  #modal-header {
+      
+      font-weight: 425;
+      font-size: 24px;
+      text-transform: inherit;
+      color: inherit;
+      width: 100%;
+      margin: 0 0 3% 0;
+  }
+  
+  #fullRefundsHeader {
+      
+      font-weight: 425;
+      font-size: 22px;
+      text-transform: inherit;
+      color: inherit;
+      width: 100%;
+      margin: 0 0 3% 0;
+      text-align: left;
+      
+  }
+  
+  #otherInformationHeader{
+      
+      font-weight: 425;
+      font-size: 22px;
+      text-transform: inherit;
+      color: inherit;
+      width: 100%;
+      margin: 4% 0 3% 0;
+      text-align: left;
+     
+      
+  }
+  
+  #otherInformationContainer {
+      
+      border-top: 1px solid #dddddd;
+      margin: 4% 0 3% 0;
+      
+  }
+  
+  .unorderedListContainer {
+      
+      margin: 4% 0 0 0;
+  }
+  
+  ul#cancellationPolicyList {
+      
+       margin-left: 3.5%;
+  }
+  
+  ul#otherInformationList {
+      
+      
+      list-style-type: none;
+      margin:0 10% 5% 1%;
+      
+  }
+  
+  li.otherInformationListItem {
+      
+      text-align: justify;
+      margin: 0 0 3% 0;
+  }
+  
+  ul#cancellationPolicyList li {
+     
+      margin: 0 10% 3% 0%;
+      list-style-type: decimal;
+      text-align: left;
+  
+  }
+  
+  #unorderedListContainer p {
+      
+      text-align: left;
+      margin: 0;
+      
+  }
+  
+  .modal-header-div {
+      
+      border-bottom: 1px solid #dddddd;
+  }
+  
