@@ -1,5 +1,6 @@
-module.exports = { calculatePaymentsForCheckout, calculateAverageMonthlyPrice, displayMonthlyAverage, getDailyRate, getNumberOfDaysInReservation};
+module.exports = { calculatePaymentsForCheckout, calculateAverageMonthlyPrice, displayMonthlyAverage, getDailyRate, getNumberOfDaysInReservation, formatDate};
 
+let monthNames = ["Jan", "Feb", "March", "April", "May", "June","July", "August", "Sept", "Oct", "Nov", "Dec"];
 
 function Payment(amount, dueDate, isInitial, isFinal, isProrated) {
 
@@ -527,6 +528,13 @@ function formatReservationCost(reservationCost) {
  
     const reservationCostArray = reservationCost.split('.');
     return reservationCostArray[0];
+}
+
+function formatDate(date) {
+        
+    let formattedDateString = normalizeDateStringFromYYYYMMDD(date);
+    let formattedDateObj = new Date(formattedDateString);
+    return monthNames[formattedDateObj.getMonth()] + ' ' + formattedDateObj.getDate();
 }
     
     

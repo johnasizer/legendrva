@@ -1,4 +1,4 @@
-const { calculatePaymentsForCheckout, calculateAverageMonthlyPrice, displayMonthlyAverage, getDailyRate, getNumberOfDaysInReservation } = require('../../../../src/javascript/common-functions');
+const { calculatePaymentsForCheckout, calculateAverageMonthlyPrice, displayMonthlyAverage, getDailyRate, getNumberOfDaysInReservation, formatDate } = require('../../../../src/javascript/common-functions');
 
 //Nightly rate  
 const rate = '105.29';
@@ -39,6 +39,16 @@ const rate = '105.29';
   
 
   describe('Test for the total reservation cost header', () => {
+
+    test('Test formatDate, take date in the 2024-05-01 format and transform it to mm dd (May 1)', () => {
+
+      const checkInDate = '2024-04-01';
+      const checkOutDate = '2024-05-01';
+
+      expect(formatDate(checkInDate)).toBe('April 1');
+      expect(formatDate(checkOutDate)).toBe('May 1');
+
+    }),
 
     test('Test displayMonthlyAverage, return false, as the reservation is only for one month.', () => {
 
