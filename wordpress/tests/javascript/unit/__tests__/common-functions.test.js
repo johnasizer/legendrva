@@ -1,4 +1,4 @@
-const { calculatePaymentsForCheckout, calculateAverageMonthlyPrice, displayMonthlyAverage, getDailyRate, getNumberOfDaysInReservation, formatDate } = require('../../../../src/javascript/common-functions');
+const { calculatePaymentsForCheckout, calculateAverageMonthlyPrice, calculateAverageMonthlyPriceNoFormatting, displayMonthlyAverage, getDailyRate, getNumberOfDaysInReservation, formatDate, formatCheckinOrCheckoutDatesForMobile } = require('../../../../src/javascript/common-functions');
 
 //Nightly rate  
 const rate = '105.29';
@@ -171,6 +171,51 @@ const rate = '105.29';
    
 
         expect(calculateAverageMonthlyPrice(checkInDate, checkOutDate, dailyRate)).toBe('$3,211.34');
+
+      }),
+
+      test('Test calculateAverageMonthlyPriceNoFormatting for 1 month and 1 day stay, April 1 + May 2', () => {
+
+        const checkInDate = '2024-04-01';
+        const checkOutDate = '2024-05-02';
+        const dailyRate = '105.29';
+   
+
+        expect(calculateAverageMonthlyPriceNoFormatting(checkInDate, checkOutDate, dailyRate)).toBe(3211.34);
+
+      }),
+
+
+      test('Test calculateAverageMonthlyPriceNoFormatting for 2 month stay, April 1 + June 1', () => {
+
+        const checkInDate = '2024-04-01';
+        const checkOutDate = '2024-06-01';
+        const dailyRate = '105.29';
+   
+
+        expect(calculateAverageMonthlyPriceNoFormatting(checkInDate, checkOutDate, dailyRate)).toBe(3211.34);
+
+      }),
+
+      test('Test calculateAverageMonthlyPriceNoFormatting for 2 month and 1 day stay, April 1 + June 2', () => {
+
+        const checkInDate = '2024-04-01';
+        const checkOutDate = '2024-06-02';
+        const dailyRate = '105.29';
+   
+
+        expect(calculateAverageMonthlyPriceNoFormatting(checkInDate, checkOutDate, dailyRate)).toBe(3193.79);
+
+      }),
+
+      test('Test calculateAverageMonthlyPriceNoFormatting cost calculation for 6 month stay, April 1 - Sept 10', () => {
+
+        const checkInDate = '2024-04-01';
+        const checkOutDate = '2024-09-10';
+        const dailyRate = '105.29';
+   
+
+        expect(calculateAverageMonthlyPriceNoFormatting(checkInDate, checkOutDate, dailyRate)).toBe(3211.34);
 
       }),
 
@@ -686,6 +731,50 @@ const rate = '105.29';
         expect(payments[11].isFinal).toEqual(true);
         expect(payments[11].isProrated).toEqual(true);
 
+      }),
+
+      test('Test formatCheckinOrCheckoutDatesForMobile, positive test month has leading zero 05-30-2024 to May 30', () => {
+
+        let date = '05-30-2024';
+  
+        expect(formatCheckinOrCheckoutDatesForMobile(date)).toBe('May 30');
+  
+      }),
+
+      test('Test formatCheckinOrCheckoutDatesForMobile, positive test month does not have leading zero 5-30-2024 to May 30', () => {
+
+        let date = '5-30-2024';
+  
+        expect(formatCheckinOrCheckoutDatesForMobile(date)).toBe('May 30');
+  
+      }),
+
+      test('Test formatCheckinOrCheckoutDatesForMobile, positive test day has leading zero 6-04-2024 to June 4', () => {
+
+        let date = '6-04-2024';
+  
+        expect(formatCheckinOrCheckoutDatesForMobile(date)).toBe('June 4');
+  
+      }),
+
+      test('Test formatCheckinOrCheckoutDatesForMobile, positive test month and day have leading zeroes 06-04-2024 to June 4', () => {
+
+        let date = '06-04-2024';
+
+  
+        expect(formatCheckinOrCheckoutDatesForMobile(date)).toBe('June 4');
+  
+      }),
+      test('Test formatCheckinOrCheckoutDatesForMobile, negative test 2024-06-22 improper date format throws error', () => {
+
+        let date = '2024-06-22';
+
+        expect(() => {
+
+          formatCheckinOrCheckoutDatesForMobile(date);
+
+        }).toThrow("String date is not in the expected format (mm-dd-yyyy).");
+  
       });
 
   });

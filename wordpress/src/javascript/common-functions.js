@@ -1,4 +1,4 @@
-module.exports = { calculatePaymentsForCheckout, calculateAverageMonthlyPrice, displayMonthlyAverage, getDailyRate, getNumberOfDaysInReservation, formatDate};
+module.exports = { calculatePaymentsForCheckout, calculateAverageMonthlyPrice, calculateAverageMonthlyPriceNoFormatting, displayMonthlyAverage, getDailyRate, getNumberOfDaysInReservation, formatDate, formatCheckinOrCheckoutDatesForMobile};
 
 let monthNames = ["Jan", "Feb", "March", "April", "May", "June","July", "August", "Sept", "Oct", "Nov", "Dec"];
 
@@ -324,6 +324,27 @@ function calculateAverageMonthlyPrice (checkinDate, checkoutDate, dailyRate) {
     
 }
 
+function calculateAverageMonthlyPriceNoFormatting (checkinDate, checkoutDate, dailyRate) {
+    
+    let paymentSum = 0;
+    let formattedCheckInDate = normalizeDateStringFromYYYYMMDD(checkinDate);
+    let formattedCheckOutDate = normalizeDateStringFromYYYYMMDD(checkoutDate);
+    let payments = getMonthlyPaymentAmountsForBooking(formattedCheckInDate, formattedCheckOutDate, dailyRate);
+    
+    payments = formatPaymentAmounts(payments);
+        
+        
+    payments.forEach((payment, index) => {
+    
+        paymentSum += parseFloat(payment.amount);
+    }); 
+         
+    let averageMonthlyPayment = (paymentSum / payments.length);
+
+    return  Math.trunc(averageMonthlyPayment * 100) / 100;;
+    
+}
+
 function formatPaymentAmounts(payments) {
     
     payments.forEach(payment => {
@@ -459,6 +480,14 @@ function formatNumberToUSCurrency(paymentAmount){
     
 }
 
+function generateFortyEightHourCancellationDate() {
+    
+    const cancelDate = new Date();
+    cancelDate.setDate(cancelDate.getDate() + 2);
+    return cancelDate;
+}
+
+
 
 //Retrieves maximum concurrent users for current time
 function getMax() {
@@ -536,7 +565,41 @@ function formatDate(date) {
     let formattedDateObj = new Date(formattedDateString);
     return monthNames[formattedDateObj.getMonth()] + ' ' + formattedDateObj.getDate();
 }
+
+
     
+function formatCheckinOrCheckoutDatesForMobile (date) {
+
+
+
+    const regex = /^(?!\d{4}-\d{2}-\d{2}$)(?:0?[1-9]|1[0-2])-(?:0?[1-9]|[12]\d|3[01])-\d{4}$/;
+    
+    //Date should be in the format of mm/dd/yyyy
+    if(date instanceof Date){
+
+        date = date.toDateString();
+    }
+
+    if(!date.match(regex)){
+
+        console.log('String date is not in the expected format (mm-dd-yyyy).');
+        throw new Error('String date is not in the expected format (mm-dd-yyyy).');
+
+    }
+
+    let mobileFormattedDate = date.split('-');
+
+    let month = monthNames[mobileFormattedDate[0] - 1];
+
+    let day = mobileFormattedDate[1];
+
+    //Remove leading zeroes if they exist on the day
+    console.log('day before ' + day);
+    day = day.replace(/^0+(.)/, '$1');
+
+    return month + ' ' + day;
+
+}
     
 function transformDateFromMillisecondsToMMDDYYYY(dateInMilliseconds) {
 
