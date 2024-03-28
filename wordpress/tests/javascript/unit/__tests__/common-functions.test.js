@@ -1,4 +1,4 @@
-const { calculatePaymentsForCheckout, calculateAverageMonthlyPrice, calculateAverageMonthlyPriceNoFormatting, displayMonthlyAverage, getDailyRate, getNumberOfDaysInReservation, formatDate, formatCheckinOrCheckoutDatesForMobile } = require('../../../../src/javascript/common-functions');
+const { calculatePaymentsForCheckout, calculateAverageMonthlyPrice, calculateAverageMonthlyPriceNoFormatting, displayMonthlyAverage, getDailyRate, getNumberOfDaysInReservation, formatDate, formatCheckinOrCheckoutDatesForMobile, normalizeHeaderFormat } = require('../../../../src/javascript/common-functions');
 
 //Nightly rate  
 const rate = '105.29';
@@ -774,6 +774,29 @@ const rate = '105.29';
           formatCheckinOrCheckoutDatesForMobile(date);
 
         }).toThrow("String date is not in the expected format (mm-dd-yyyy).");
+  
+      }),
+      test('Test normalizeHeaderFormat, positive test all lowercase characters', () => {
+
+        let header = 'this is a test';
+  
+        expect(normalizeHeaderFormat(header)).toBe('This is a test');
+  
+      }),
+
+      test('Test normalizeHeaderFormat, positive test all uppercase characters', () => {
+
+        let header = 'THIS IS A TEST';
+  
+        expect(normalizeHeaderFormat(header)).toBe('This is a test');
+  
+      }),
+
+      test('Test normalizeHeaderFormat, positive test mix of upper and lowercase characters', () => {
+
+        let header = 'This Is A test';
+  
+        expect(normalizeHeaderFormat(header)).toBe('This is a test');
   
       });
 
