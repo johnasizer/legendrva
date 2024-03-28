@@ -1,4 +1,4 @@
-module.exports = { calculatePaymentsForCheckout, calculateAverageMonthlyPrice, calculateAverageMonthlyPriceNoFormatting, displayMonthlyAverage, getDailyRate, getNumberOfDaysInReservation, formatDate, formatCheckinOrCheckoutDatesForMobile};
+module.exports = { calculatePaymentsForCheckout, calculateAverageMonthlyPrice, calculateAverageMonthlyPriceNoFormatting, displayMonthlyAverage, getDailyRate, getNumberOfDaysInReservation, formatDate, formatCheckinOrCheckoutDatesForMobile, normalizeHeaderFormat};
 
 let monthNames = ["Jan", "Feb", "March", "April", "May", "June","July", "August", "Sept", "Oct", "Nov", "Dec"];
 
@@ -278,7 +278,7 @@ function calculateLengthOfStay(checkInDate, checkOutDate) {
  * 
  * Returns boolean
  * */
-function displayMonthlyAverage(checkinDate, checkoutDate){
+/*function displayMonthlyAverage(checkinDate, checkoutDate){
     
     let formattedCheckInDate = new Date(normalizeDateStringFromYYYYMMDD(checkinDate));
     let formattedCheckOutDate = new Date(normalizeDateStringFromYYYYMMDD(checkoutDate));
@@ -288,6 +288,24 @@ function displayMonthlyAverage(checkinDate, checkoutDate){
     formattedCheckInDate.setMonth(formattedCheckInDate.getMonth() + 1);
 
     if(formattedCheckOutDate > formattedCheckInDate){
+
+        displayMonthlyAverage = true;
+        
+    }
+    
+    return displayMonthlyAverage;
+}*/
+
+function displayMonthlyAverage(checkinDateString, checkoutDateString){
+
+    let displayMonthlyAverage = false;
+    const checkinDate = normalizeDateToUTC(new Date(checkinDateString));
+    const checkoutDate = normalizeDateToUTC(new Date(checkoutDateString)); 
+		
+    //Move the date forward by one month. Example. May 1 -> June 1
+	checkinDate.setMonth(checkinDate.getMonth() + 1);
+    
+	if(checkoutDate > checkinDate){
 
         displayMonthlyAverage = true;
         
@@ -327,21 +345,21 @@ function calculateAverageMonthlyPrice (checkinDate, checkoutDate, dailyRate) {
 function calculateAverageMonthlyPriceNoFormatting (checkinDate, checkoutDate, dailyRate) {
     
     let paymentSum = 0;
-    let formattedCheckInDate = normalizeDateStringFromYYYYMMDD(checkinDate);
-    let formattedCheckOutDate = normalizeDateStringFromYYYYMMDD(checkoutDate);
-    let payments = getMonthlyPaymentAmountsForBooking(formattedCheckInDate, formattedCheckOutDate, dailyRate);
-    
-    payments = formatPaymentAmounts(payments);
-        
-        
+    const normalizedCheckinDate = normalizeDateToUTC(new Date(checkinDate));
+    const normalizedCheckoutDate = normalizeDateToUTC(new Date(checkoutDate));
+
+    let payments = getMonthlyPaymentAmountsForBooking(normalizedCheckinDate, normalizedCheckoutDate, dailyRate);
+   
+    payments = formatPaymentAmounts(payments); 
     payments.forEach((payment, index) => {
-    
+
         paymentSum += parseFloat(payment.amount);
+
     }); 
-         
+	
     let averageMonthlyPayment = (paymentSum / payments.length);
 
-    return  Math.trunc(averageMonthlyPayment * 100) / 100;;
+    return  Math.trunc(averageMonthlyPayment * 100) / 100;
     
 }
 
@@ -620,6 +638,14 @@ function transformDateFromMillisecondsToMMDDYYYY(dateInMilliseconds) {
 
 
     
-    
+ function normalizeHeaderFormat (header) {
+
+    let lowercaseHeader = header.toLowerCase();
+    const firstCharacterOfHeader = lowercaseHeader.charAt(0).toUpperCase();
+    const headerWithoutFirstCharacter = lowercaseHeader.slice(1);
+
+    return firstCharacterOfHeader + headerWithoutFirstCharacter;
+
+ }
 
     
