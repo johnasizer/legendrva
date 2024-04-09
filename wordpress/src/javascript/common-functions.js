@@ -1,4 +1,4 @@
-module.exports = { calculatePaymentsForCheckout, calculateAverageMonthlyPrice, calculateAverageMonthlyPriceNoFormatting, displayMonthlyAverage, getDailyRate, getNumberOfDaysInReservation, formatDate, formatCheckinOrCheckoutDatesForMobile, normalizeHeaderFormat};
+module.exports = { calculatePaymentsForCheckout, calculateAverageMonthlyPrice, calculateAverageMonthlyPriceNoFormatting, displayMonthlyAverage, getDailyRate, getNumberOfDaysInReservation, formatDate, formatCheckinOrCheckoutDatesForMobile, normalizeHeaderFormat, encodeURLQueryParameters, decodeURLQueryParameters};
 
 let monthNames = ["Jan", "Feb", "March", "April", "May", "June","July", "August", "Sept", "Oct", "Nov", "Dec"];
 
@@ -130,7 +130,7 @@ function calculateRemainingPayments(checkinDate, checkoutDate, dailyRate, paymen
         //Get number of days in current month
         const numOfDaysInMonth = getDaysInMonth(currentBillingCycleStartDate);
 
-        if(endOfCurrentBillingCycle > normalizedCheckoutDate) {
+        if(endOfCurrentBillingCycle.getTime() >= normalizedCheckoutDate.getTime()) {
 
             //Find the billable days in the final billing cycle
             //The days between the checkout date and billing cycle end are not billable
@@ -139,7 +139,7 @@ function calculateRemainingPayments(checkinDate, checkoutDate, dailyRate, paymen
 
             paymentAmount = billableDays * dailyRate;
 
-            if(billableDays < numOfDaysInMonth){
+            if(billableDays < numOfDaysInMonth || endOfCurrentBillingCycle.getTime() === normalizedCheckoutDate.getTime()){
                 
                 isFinalPaymentProrated = true;
             }
@@ -278,24 +278,6 @@ function calculateLengthOfStay(checkInDate, checkOutDate) {
  * 
  * Returns boolean
  * */
-/*function displayMonthlyAverage(checkinDate, checkoutDate){
-    
-    let formattedCheckInDate = new Date(normalizeDateStringFromYYYYMMDD(checkinDate));
-    let formattedCheckOutDate = new Date(normalizeDateStringFromYYYYMMDD(checkoutDate));
-    let displayMonthlyAverage = false;
-
-    //Move the date forward by one month. Example. May 1 -> June 1
-    formattedCheckInDate.setMonth(formattedCheckInDate.getMonth() + 1);
-
-    if(formattedCheckOutDate > formattedCheckInDate){
-
-        displayMonthlyAverage = true;
-        
-    }
-    
-    return displayMonthlyAverage;
-}*/
-
 function displayMonthlyAverage(checkinDateString, checkoutDateString){
 
     let displayMonthlyAverage = false;
@@ -646,6 +628,24 @@ function transformDateFromMillisecondsToMMDDYYYY(dateInMilliseconds) {
 
     return firstCharacterOfHeader + headerWithoutFirstCharacter;
 
+ }
+
+ function encodeURLQueryParameters (url) {
+
+    const uriArray = url.split('?');
+    const encodedQueryParameters = btoa(uriArray[1]);
+    
+    return uriArray[0] + '?' + encodedQueryParameters;
+
+ }
+
+ function decodeURLQueryParameters (url) {
+
+    const uriArray = url.split('?');
+    const decodedQueryParameters = atob(uriArray[1]);
+
+    return uriArray[0] + '?' + decodedQueryParameters;
+    
  }
 
     

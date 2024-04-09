@@ -1,4 +1,4 @@
-const { calculatePaymentsForCheckout, calculateAverageMonthlyPrice, calculateAverageMonthlyPriceNoFormatting, displayMonthlyAverage, getDailyRate, getNumberOfDaysInReservation, formatDate, formatCheckinOrCheckoutDatesForMobile, normalizeHeaderFormat } = require('../../../../src/javascript/common-functions');
+const { calculatePaymentsForCheckout, calculateAverageMonthlyPrice, calculateAverageMonthlyPriceNoFormatting, displayMonthlyAverage, getDailyRate, getNumberOfDaysInReservation, formatDate, formatCheckinOrCheckoutDatesForMobile, normalizeHeaderFormat,  encodeURLQueryParameters, decodeURLQueryParameters } = require('../../../../src/javascript/common-functions');
 
 //Nightly rate  
 const rate = '105.29';
@@ -733,6 +733,33 @@ const rate = '105.29';
 
       }),
 
+      test('Test calculatePaymentsForCheckout payments for one month and one day, July 1 - Sept 1', () => {
+
+        const checkInDate = '2024-07-01';
+        const checkOutDate = '2024-09-01';
+        const dailyRate = '105.29';
+        
+        const payments = calculatePaymentsForCheckout(checkInDate, checkOutDate, dailyRate);
+        
+        let firstPaymentDueDate = new Date();
+        firstPaymentDueDate.setUTCHours(12, 0, 0, 0);
+
+        expect(payments[0].amount).toBe(3263.99);
+        expect(payments[0].dueDate).toEqual(firstPaymentDueDate);
+        expect(payments[0].isInitial).toEqual(true);
+        expect(payments[0].isFinal).toEqual(false);
+        expect(payments[0].isProrated).toEqual(false);
+
+        expect(payments[1].amount).toBe(3263.99);
+        expect(transformDateFromMillisecondsToMMDDYYYY(payments[1].dueDate)).toEqual('07-22-2024');
+        expect(payments[1].isInitial).toEqual(false);
+        expect(payments[1].isFinal).toEqual(true);
+        expect(payments[1].isProrated).toEqual(true);
+
+        expect(payments.length).toBe(2);
+
+      }),
+
       test('Test formatCheckinOrCheckoutDatesForMobile, positive test month has leading zero 05-30-2024 to May 30', () => {
 
         let date = '05-30-2024';
@@ -797,6 +824,23 @@ const rate = '105.29';
         let header = 'This Is A test';
   
         expect(normalizeHeaderFormat(header)).toBe('This is a test');
+  
+      }),
+      
+      test('Test encodeURLQueryParameters, positive test encode a the query parameters in base64', () => {
+
+        const uri = 'https://test.com?firstTestScore=A+&secondTestScore=B-&thirdTestScore=F-';
+
+  
+        expect(encodeURLQueryParameters(uri)).toEqual('https://test.com?Zmlyc3RUZXN0U2NvcmU9QSsmc2Vjb25kVGVzdFNjb3JlPUItJnRoaXJkVGVzdFNjb3JlPUYt');
+  
+      }),
+      
+      test('Test decodeURLQueryParameters,  positive test decode a the query parameters from base64', () => {
+
+        let uriEncoded = 'https://test.com?Zmlyc3RUZXN0U2NvcmU9QSsmc2Vjb25kVGVzdFNjb3JlPUItJnRoaXJkVGVzdFNjb3JlPUYt';
+  
+        expect(decodeURLQueryParameters(uriEncoded)).toEqual('https://test.com?firstTestScore=A+&secondTestScore=B-&thirdTestScore=F-');
   
       });
 
